@@ -25,7 +25,7 @@ class AuthController extends Controller
 
     /**
      * Where to redirect users after login / registration.
-     *
+     *登录成功后去到home主页，注册成功后去到个人资料填写页，此变量作废
      * @var string
      */
     protected $redirectTo = '/tasks';

@@ -53,7 +53,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-sign-in"></i>登录
                                 </button>
-
+                            </div>
+                            <div class="col-md-6 col-md-offset-4">
+                                <a class="btn btn-link" href="{{ url('/register') }}">注册账号</a>
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">忘记密码?</a>
                             </div>
                         </div>

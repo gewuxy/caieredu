@@ -25,7 +25,13 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        if(Auth::check()){
+            //已经登录
+            return redirect('/home');
+        }else{
+            //未登录
+            return redirect('/login');
+        }
     })->middleware('guest');
 
     Route::get('/tasks', 'TaskController@index');

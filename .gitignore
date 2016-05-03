@@ -1,5 +1,6 @@
-/vendor
-!/vendor/laravel
+!vendor/
+vendor/*
+!vendor/laravel/
 /node_modules
 /public/storage
 Homestead.yaml

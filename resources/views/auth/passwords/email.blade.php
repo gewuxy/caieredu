@@ -14,29 +14,25 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/password/email') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">电话号码</label>
 
-                            <div class="col-md-6">
+                            <div class="input-group">
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="电话号码">
-
-                                @if ($errors->has('phone'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="input-group-btn">
+                                    <button class="btn">
+                                        发送验证码
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('smsCode') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">验证码</label>
 
-                            <div class="col-md-6">
+                            <div>
                                 <input type="text" class="form-control" name="smsCode" placeholder="输入验证码">
-                                <spanclass="input-group-addon">发送验证码</span>
 
                                 @if ($errors->has('smsCode'))
                                     <span class="help-block">
@@ -47,9 +43,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">新密码</label>
-
-                            <div class="col-md-6">
+                            <div>
                                 <input type="password" class="form-control" name="password" placeholder="请输入密码">
 
                                 @if ($errors->has('password'))
@@ -61,8 +55,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">确认密码</label>
-                            <div class="col-md-6">
+                            <div>
                                 <input type="password" class="form-control" name="password_confirmation" placeholder="再次输入密码">
 
                                 @if ($errors->has('password_confirmation'))
@@ -74,8 +67,8 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div>
+                                <button type="submit" class="btn btn-primary clearfix" style="width: 100%">
                                     确认
                                 </button>
                             </div>

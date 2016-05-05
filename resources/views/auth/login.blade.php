@@ -7,13 +7,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">登录</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">手机号码</label>
-
-                            <div class="col-md-6">
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="手机号" pattern="/^13\d{9}$|^14\d{9}$|^15\d{9}$|^17\d{9}$|^18\d{9}$/">
 
                                 @if ($errors->has('phone'))
@@ -22,12 +19,8 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">密码</label>
-
-                            <div class="col-md-6">
                                 <input type="password" class="form-control" name="password" placeholder="密码">
 
                                 @if ($errors->has('password'))
@@ -35,28 +28,23 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember"> 记住我
                                     </label>
                                 </div>
-                            </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>登录
+                                <button type="submit" class="btn btn-primary" style="width:100%">
+                                    登录
                                 </button>
-                            </div>
-                            <div class="col-md-6 col-md-offset-4">
-                                <a class="btn btn-link" href="{{ url('/register') }}">注册账号</a>
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">忘记密码?</a>
+                            <div>
+                                <a class="btn btn-link pull-left" href="{{ url('/register') }}">注册账号</a>
+                                <a class="btn btn-link pull-right" href="{{ url('/password/reset') }}">忘记密码?</a>
                             </div>
                         </div>
                     </form>

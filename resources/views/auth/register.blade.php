@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">注册</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
 
@@ -29,15 +29,14 @@
                         </div>
 
                         <div class="form-group">
-
-                            <div class="input-group">
+                            <div>
                                 <input type="smsCode" class="form-control" name="smsCode" placeholder="请输入验证码">
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
-                            <div class="input-group">
+                            <div>
                                 <input type="password" class="form-control" name="password" placeholder="请输入密码">
 
                                 @if ($errors->has('password'))
@@ -50,7 +49,7 @@
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 
-                            <div class="input-group">
+                            <div>
                                 <input type="password" class="form-control" name="password_confirmation" placeholder="再次输入密码">
 
                                 @if ($errors->has('password_confirmation'))
@@ -62,10 +61,13 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div>
                                 <button type="submit" class="btn btn-primary" style="width:100%">
                                     注册
                                 </button>
+                                <div>
+                                    <a class="btn btn-link pull-right" href="{{ url('/login') }}">已有账号，直接登录</a>
+                                </div>
                             </div>
                         </div>
                     </form>

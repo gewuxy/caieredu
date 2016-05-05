@@ -8,14 +8,12 @@
                 <div class="panel-heading">修改密码</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/password/reset') }}">
                         {!! csrf_field() !!}
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">手机号码</label>
-
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="phone" value="{{ $phone or old('phone') }}">
 

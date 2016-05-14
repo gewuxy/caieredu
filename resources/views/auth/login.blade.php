@@ -7,27 +7,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">登录</div>
                 <div class="panel-body">
+                    @include('common.errors')
                     <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="手机号" pattern="/^13\d{9}$|^14\d{9}$|^15\d{9}$|^17\d{9}$|^18\d{9}$/">
-
-                                @if ($errors->has('phone'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="手机号">
+                        </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <input type="password" class="form-control" name="password" placeholder="密码">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                            <input type="password" class="form-control" name="password" placeholder="密码">
                         </div>
 
                         <div class="form-group">

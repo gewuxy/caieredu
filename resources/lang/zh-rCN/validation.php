@@ -105,6 +105,13 @@ return [
 			'confirmed'   => '两次密码输入不一致',
 			'min'         => '密码至少6位',
         ],
+		'orgName' => [
+			'required' => '请填写机构名称',
+		],
+		'orgAddress.required' => '请选择机构地址',
+		'orgAddressDetail.required' => '请填写机构详细地址',
+		'contacts.required' => '请填写联系人',
+		'contactsNO.required' => '请填写联系电话'
     ],
 
     /*

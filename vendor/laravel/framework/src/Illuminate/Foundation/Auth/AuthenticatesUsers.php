@@ -34,7 +34,7 @@ trait AuthenticatesUsers
             return view($view);
         }
 
-        return view('auth.login');
+        return view('auth.login',['title' => '登录']);
     }
 
     /**

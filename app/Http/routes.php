@@ -38,6 +38,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/task', 'TaskController@store');
     Route::delete('/task/{task}', 'TaskController@destroy');
     Route::get('/home','HomeController@index');
+    Route::get('/editDetail','HomeController@getEditDetail');
+    Route::post('/editDetail','HomeController@postEditDetail');
+    Route::get('/selectAddress','HomeController@selectAddress');
 
     Route::auth();
 

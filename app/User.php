@@ -32,4 +32,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+
+    /**
+     * Get all of the courses for the user.
+     */
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

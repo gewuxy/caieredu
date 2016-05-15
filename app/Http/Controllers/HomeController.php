@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,6 +10,13 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    /**
+     * The task repository instance.
+     *
+     * @var TaskRepository
+     */
+    //protected $courses;
+    
     /**
      * Create a new controller instance.
      *
@@ -26,9 +34,13 @@ class HomeController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home',['title' => '商家主页']);
+        $courses = Course::where('user_id', $request->user()->id)->get();
+        return view('home',[
+            'title' => '商家主页',
+            'courses' => $courses,
+        ]);
     }
 
     public function getEditDetail(){
@@ -54,7 +66,36 @@ class HomeController extends Controller
         return redirect('/home');
     }
 
-    public function selectAddress(){
-        
+    public function createCource(){
+        return view('createCourse',['title' => '新建课程']);
+    }
+
+    public function saveCource(Request $request){
+        $this->validate($request, [
+            'courseName' => 'required',
+            'courseType' => 'required',
+            'courseTime' => 'required',
+            'minAge'     => 'required',
+            'maxAge'     => 'required',
+            'minNum'     => 'required',
+            'maxNum'     => 'required',
+            'courseAddressDetail' => 'required',
+            'coursePrice' => 'required',
+            'courseSummary' => 'required',
+        ]);
+        $request->user()->courses()->create([
+            'name' => $request->courseName,
+            'category' => $request->courseType,
+            'startDate' => $request->courseTime,
+            'minAge'  => $request->minAge,
+            'maxAge'  => $request->maxAge,
+            'minNum'  => $request->minNum,
+            'maxNum' => $request->maxNum,
+            'address' => $request->province.$request->city.$request->district,
+            'detailAddress' => $request->courseAddressDetail,
+            'price' => $request->coursePrice,
+            'summary' => $request->courseSummary,
+        ]);
+        return redirect('/home');
     }
 }

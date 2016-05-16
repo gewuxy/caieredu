@@ -22,7 +22,9 @@ class CreateCoursesTable extends Migration
             $table->integer('maxAge');
             $table->integer('minNum');
             $table->integer('maxNum');
-            $table->string('address');
+            $table->string('province');
+            $table->string('city');
+            $table->string('district');
             $table->string('detailAddress');
             $table->integer('price');
             $table->string('summary');

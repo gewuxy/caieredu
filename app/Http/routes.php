@@ -40,8 +40,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home','HomeController@index');
     Route::get('/editDetail','HomeController@getEditDetail');
     Route::post('/editDetail','HomeController@postEditDetail');
-    Route::get('/selectAddress','HomeController@selectAddress');
-    Route::get('/newCourse','HomeController@createCource');
+    Route::get('/newCourse/{id?}','HomeController@createCource');
     Route::post('/newCourse','HomeController@saveCource');
 
     Route::auth();

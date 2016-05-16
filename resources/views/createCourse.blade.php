@@ -13,7 +13,7 @@
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-book" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="courseName" placeholder="课程名称" value="{{old('courseName')}}">
+                                <input type="text" class="form-control" name="courseName" placeholder="课程名称" value="{{ $course->name or old('courseName')}}">
                             </div>
                         </div>
 
@@ -21,7 +21,7 @@
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="courseType" placeholder="课程类别" value="{{old('courseType')}}">
+                                <input type="text" class="form-control" name="courseType" placeholder="课程类别" value="{{$course->category or old('courseType')}}">
                             </div>
                         </div>
 
@@ -29,47 +29,47 @@
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-time" aria-hidden="true"></i></span>
-                                <input id="datetime" type="datetime" class="form-control" name="courseTime" placeholder="课程起始日期" value="{{old('courseTime')}}">
+                                <input id="datetime" type="datetime" class="form-control" name="courseTime" placeholder="课程起始日期" value="{{$course->startDate or old('courseTime')}}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="minAge" placeholder="适用年龄,最小年龄" value="{{old('minAge')}}">
+                                <input type="text" class="form-control" name="minAge" placeholder="适用年龄,最小年龄" value="{{$course->minAge or old('minAge')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="maxAge" placeholder="适用年龄,最大年龄" value="{{old('maxAge')}}">
+                                <input type="text" class="form-control" name="maxAge" placeholder="适用年龄,最大年龄" value="{{$course->maxAge or old('maxAge')}}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="minNum" placeholder="最少开课人数" value="{{old('minNum')}}">
+                                <input type="text" class="form-control" name="minNum" placeholder="最少开课人数" value="{{$course->minNum or old('minNum')}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="maxNum" placeholder="最大开课人数" value="{{old('maxNum')}}">
+                                <input type="text" class="form-control" name="maxNum" placeholder="最大开课人数" value="{{$course->maxNum or old('maxNum')}}">
                             </div>
                         </div>
 
                         <div class="form-group btn-group-justified" style="align-content: center" id="distpicker">
-                            <select name="province" data-province="省" style="width: 33%"></select>
-                            <select name="city" data-city="市" style="width: 33%"></select>
-                            <select name="district" data-district="区" style="width: 33%"></select>
+                            <select id="province" name="province" data-province="{{$course->province}}" style="width: 33%" ></select>
+                            <select id="city" name="city" data-city="{{$course-city}}" style="width: 33%"></select>
+                            <select id="district" name="district" data-district="{{$course->district}}" style="width: 33%"></select>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-home" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="courseAddressDetail" placeholder="课程详细地址" value="{{old('courseAddressDetail')}}">
+                                <input type="text" class="form-control" name="courseAddressDetail" placeholder="课程详细地址" value="{{$course->detailAddress or old('courseAddressDetail')}}">
                             </div>
                         </div>
 
@@ -77,7 +77,7 @@
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-yen" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="coursePrice" placeholder="课程价格" value="{{old('coursePrice')}}">
+                                <input type="text" class="form-control" name="coursePrice" placeholder="课程价格" value="{{$course->price or old('coursePrice')}}">
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="courseSummary" placeholder="课程简介" value="{{old('courseSummary')}}">
+                                <input type="text" class="form-control" name="courseSummary" placeholder="课程简介" value="{{$course->summary or old('courseSummary')}}">
                             </div>
                         </div>
 

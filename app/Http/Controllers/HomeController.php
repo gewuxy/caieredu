@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -56,18 +58,31 @@ class HomeController extends Controller
         ]);
         $user = $request->user();
         $user->organization = $request->orgName;
-        $user->address = $request->province.$request->city.$request->district;
+        $user->province = $request->province;
+        $user->city = $request->city;
+        $user->district = $request->district;
         $user->detailAddress = $request->orgAddressDetail;
         $user->introduction = $request->introduction;
         $user->contacts = $request->contacts;
         $user->contactsNO = $request->contactsNO;
+        $user->headIcon = $this->ajaxUploadImage();
         $user->save();
 
         return redirect('/home');
     }
 
-    public function createCource(){
-        return view('createCourse',['title' => '新建课程']);
+    public function createCource($id = -1){
+        if($id == -1) {
+            $title = '新建课程';
+            $course = null;
+        }else{
+            $title = '编辑课程';
+            $course = Course::where('id',$id)->first();
+        }
+        return view('createCourse',[
+            'title' => $title,
+            'course' => $course,
+        ]);
     }
 
     public function saveCource(Request $request){
@@ -79,6 +94,9 @@ class HomeController extends Controller
             'maxAge'     => 'required',
             'minNum'     => 'required',
             'maxNum'     => 'required',
+            'province'   => 'required',
+            'city'       => 'required',
+            'district'   => 'required',
             'courseAddressDetail' => 'required',
             'coursePrice' => 'required',
             'courseSummary' => 'required',
@@ -91,11 +109,25 @@ class HomeController extends Controller
             'maxAge'  => $request->maxAge,
             'minNum'  => $request->minNum,
             'maxNum' => $request->maxNum,
-            'address' => $request->province.$request->city.$request->district,
+            'province' => $request->province,
+            'city' => $request->city,
+            'district' => $request->district,
             'detailAddress' => $request->courseAddressDetail,
             'price' => $request->coursePrice,
             'summary' => $request->courseSummary,
         ]);
         return redirect('/home');
+    }
+
+    public function ajaxUploadImage()
+    {
+        $file = Input::file('pictureupload');
+        $input = array('image' => $file);
+
+        $destinationPath = 'headIcons/';
+        $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
+        Input::file('pictureupload')->move($destinationPath, $filename);
+        return asset($destinationPath . $filename);
+
     }
 }

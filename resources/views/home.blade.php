@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row" style="background-color: #2e6da4;box-sizing: border-box">
-        <img src="" class="img-responsive img-rounded" style="width: 140px;height: 140px;display: inline-block; margin: 10px" alt="Responsive image">
+    <div class="row" style="background-color: #2e6da4;box-sizing: border-box" onclick="window.location.href = '/editDetail'">
+        <img src="{{Auth::user()->headIcon}}" class="img-responsive img-rounded" style="width: 140px;height: 140px;display: inline-block; margin: 10px" alt="Responsive image">
         <div style="vertical-align: middle;display: inline-block;color: white;">
             <p>商家名称：{{ Auth::user()->organization }}</p>
             <p>联系电话：{{Auth::user()->contactsNO}}</p>
@@ -18,7 +18,7 @@
         <div class="pull-right" style=""><a class="btn btn-primary" style="margin-top: 8px;margin-right: 10px" href="{{url('/newCourse')}}">新建课程</a></div>
     </div>
     @foreach ($courses as $course)
-    <div class="row" style="box-sizing: border-box">
+    <div id="{{$course->id}}" class="row" style="box-sizing: border-box" onclick="window.location.href = '/newCourse/{{$course->id}}'">
         <img src="" class="img-responsive img-rounded" style="width: 80px;height: 80px;display: inline-block; margin: 10px" alt="Responsive image">
         <div style="vertical-align: middle;display: inline-block;">
             <p style="color: #666666">课程名称：<span style="color: #2ca02c">{{$course->name}}</span></p>

@@ -17,8 +17,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('password', 60);
+            $table->string('headIcon');
             $table->string('organization');
-            $table->string('address');
+            $table->string('province');
+            $table->string('city');
+            $table->string('district');
             $table->string('detailAddress');
             $table->string('introduction');
             $table->string('contacts');

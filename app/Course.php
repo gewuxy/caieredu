@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['name','category','startDate','minAge','maxAge','minNum','maxNum','address','detailAddress','price','summary'];
+    protected $fillable = ['name','category','startDate','minAge','maxAge','minNum','maxNum','province','city','district','detailAddress','price','summary'];
 
     /**
      * The attributes that should be cast to native types.

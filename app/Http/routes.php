@@ -41,7 +41,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/editDetail','HomeController@getEditDetail');
     Route::post('/editDetail','HomeController@postEditDetail');
     Route::get('/newCourse/{id?}','HomeController@createCource');
-    Route::post('/newCourse','HomeController@saveCource');
+    Route::post('/newCourse/{id?}','HomeController@saveCource');
 
     Route::auth();
 

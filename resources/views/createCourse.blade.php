@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     @include('common.errors')
-                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/newCourse') }}">
+                    <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ isset($course)? url('/newCourse/'.$course->id) : url('/newCourse/')}}">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <label class="control-label sr-only" for="inputGroupSuccess1">Input group with success</label>
@@ -60,9 +60,9 @@
                         </div>
 
                         <div class="form-group btn-group-justified" style="align-content: center" id="distpicker">
-                            <select id="province" name="province" data-province="{{$course->province}}" style="width: 33%" ></select>
-                            <select id="city" name="city" data-city="{{$course-city}}" style="width: 33%"></select>
-                            <select id="district" name="district" data-district="{{$course->district}}" style="width: 33%"></select>
+                            <select  name="province" data-province="{{$course->province or '省'}}" style="width: 33%" ></select>
+                            <select  name="city" data-city="{{$course->city or '市'}}" style="width: 33%"></select>
+                            <select  name="district" data-district="{{$course->district or '区'}}" style="width: 33%"></select>
                         </div>
 
                         <div class="form-group">

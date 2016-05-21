@@ -11,7 +11,7 @@
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <div class="input-group">
-                                <img src="{{Auth::user()->headIcon}}" alt="头像" style="float: left;width: 80px;height: 80px"/>
+                                <img id="preview" src="{{Auth::user()->headIcon}}" alt="头像" style="float: left;width: 80px;height: 80px"/>
                                 <input name="pictureupload" type="file" id="pictureupload" style="float: left;padding-top: 28px;padding-left: 10px">
                             </div>
                         </div>
@@ -82,41 +82,16 @@
             autoSelect:false
         });
 
-        $(function(){
-            $('#pictureupload').change(setLogoRegistration);
+            $('#pictureupload').change(function(){
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
 
-            function setLogoRegistration(){
-
-                $dst = $('#picture-preview').html("<img />");
-                $dst.children('img').attr('src',$('#picture').val());
-            };
-            setLogoRegistration();
-
-            $('body').delegate('#pictureupload','change', function(){
-                var data = new FormData();
-                data.append("image",$(this).prop('files')[0]);
-                var options = {
-                    url: $(this).data('url'),
-                    method: "post",
-                    processData: false, // important
-                    contentType: false, // important
-                    data: data,
-                    dataType: "json",
-                    success:function(response, statusText, xhr, $form)
-                    {
-                        $('#picture').val(response.file).change();
-                        console.log('Upload Complete');
-                    },
-                    beforeSend: function(){
-                        $('body').addClass('ajaxActive');
-                        console.log('Uploading Image...');
-                    },
-                    complete: function(){
-                        $('body').removeClass('ajaxActive');
+                    reader.onload = function (e) {
+                        $('#preview').attr('src', e.target.result);
                     }
-                };
-                $.ajax(options);
+
+                    reader.readAsDataURL(this.files[0]);
+                }
             });
-        });
     </script>
 @endsection

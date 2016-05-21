@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Psy\Exception\ErrorException;
 
 class HomeController extends Controller
 {
@@ -65,7 +66,27 @@ class HomeController extends Controller
         $user->introduction = $request->introduction;
         $user->contacts = $request->contacts;
         $user->contactsNO = $request->contactsNO;
-        $user->headIcon = $this->ajaxUploadImage();
+        $file = Input::file('pictureupload');
+        if($file != null && $file->isValid()){
+            $input = array('image' => $file);
+            $destinationPath = 'headIcons/';
+            $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
+            Input::file('pictureupload')->move($destinationPath, $filename);
+            //var_dump($user->headIcon);
+            if(!empty($user->headIcon)){
+                $str = 'headIcons'.substr($user->headIcon, strrpos($user->headIcon,'/'));
+               //var_dump($str);
+                //var_dump(file_exists($str));
+                if(file_exists($str)){
+                    if(unlink($str)){
+                        //var_dump("删除成功") ;
+                    }else{
+                        //var_dump("删除失败") ;
+                    }
+                }
+            }
+            $user->headIcon = asset($destinationPath . $filename);
+        }
         $user->save();
 
         return redirect('/home');
@@ -85,7 +106,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function saveCource(Request $request){
+    public function saveCource(Request $request,$id = -1){
         $this->validate($request, [
             'courseName' => 'required',
             'courseType' => 'required',
@@ -101,33 +122,47 @@ class HomeController extends Controller
             'coursePrice' => 'required',
             'courseSummary' => 'required',
         ]);
-        $request->user()->courses()->create([
-            'name' => $request->courseName,
-            'category' => $request->courseType,
-            'startDate' => $request->courseTime,
-            'minAge'  => $request->minAge,
-            'maxAge'  => $request->maxAge,
-            'minNum'  => $request->minNum,
-            'maxNum' => $request->maxNum,
-            'province' => $request->province,
-            'city' => $request->city,
-            'district' => $request->district,
-            'detailAddress' => $request->courseAddressDetail,
-            'price' => $request->coursePrice,
-            'summary' => $request->courseSummary,
-        ]);
+        //var_dump($request->province,$request->city,$request->district);
+        if($id == -1){
+            $request->user()->courses()->create([
+                'name'             => $request->courseName,
+                'category'         => $request->courseType,
+                'startDate'        => $request->courseTime,
+                'minAge'           => $request->minAge,
+                'maxAge'           => $request->maxAge,
+                'minNum'           => $request->minNum,
+                'maxNum'           => $request->maxNum,
+                'province'         => $request->province,
+                'city'             => $request->city,
+                'district'         => $request->district,
+                'detailAddress'    => $request->courseAddressDetail,
+                'price'            => $request->coursePrice,
+                'summary'          => $request->courseSummary,
+            ]);
+        }else{
+            Course::where('id',$id)->first()->update([
+                'name'             => $request->courseName,
+                'category'         => $request->courseType,
+                'startDate'        => $request->courseTime,
+                'minAge'           => $request->minAge,
+                'maxAge'           => $request->maxAge,
+                'minNum'           => $request->minNum,
+                'maxNum'           => $request->maxNum,
+                'province'         => $request->province,
+                'city'             => $request->city,
+                'district'         => $request->district,
+                'detailAddress'    => $request->courseAddressDetail,
+                'price'            => $request->coursePrice,
+                'summary'          => $request->courseSummary,
+            ]);
+        }
+
         return redirect('/home');
     }
 
     public function ajaxUploadImage()
     {
-        $file = Input::file('pictureupload');
-        $input = array('image' => $file);
 
-        $destinationPath = 'headIcons/';
-        $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
-        Input::file('pictureupload')->move($destinationPath, $filename);
-        return asset($destinationPath . $filename);
 
     }
 }

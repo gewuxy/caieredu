@@ -3,14 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row" style="background-color: #2e6da4;box-sizing: border-box" onclick="window.location.href = '/editDetail'">
-        <img src="{{Auth::user()->headIcon}}" class="img-responsive img-rounded" style="width: 140px;height: 140px;display: inline-block; margin: 10px" alt="Responsive image">
+        <img src="{{Auth::user()->headIcon}}" class="img-responsive img-rounded" style="width: 100px;height: 100px;display: inline-block; margin: 10px" alt="Responsive image">
         <div style="vertical-align: middle;display: inline-block;color: white;">
             <p>商家名称：{{ Auth::user()->organization }}</p>
             <p>联系电话：{{Auth::user()->contactsNO}}</p>
             <p>地址：{{Auth::user()->detailAddress}}</p>
             <p>审核状态</p>
         </div>
-        <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="color: white;padding-top: 60px;padding-right: 10px"></span>
+        <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="color: white;padding-top: 50px;padding-right: 10px;"></span>
 
     </div>
     <div class="row" style="height: 50px;border-bottom: 1px solid #cccccc">

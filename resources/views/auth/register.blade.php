@@ -15,7 +15,7 @@
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}"
                                        placeholder="手机号码">
                                 <div class="input-group-btn">
-                                    <button class="btn">
+                                    <button id="sendVerifySmsButton" class="btn">
                                         发送验证码
                                     </button>
                                 </div>
@@ -56,4 +56,25 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/js/laravel-sms.js"></script>
+<script>
+    $('#sendVerifySmsButton').sms({
+        //laravel csrf token
+        token           : "{{csrf_token()}}",
+        //定义如何获取mobile的值
+        mobile_selector : 'input[name=phone]',
+        //手机号的检测规则
+        mobile_rule     : 'mobile_required',
+        //请求间隔时间
+        interval        : 60,
+        //是否请求语音验证码
+        voice           : false,
+
+        //定义服务器有消息返回时如何展示，默认为alert
+        alertMsg       :  function (msg, type) {
+            alert(msg);
+        }
+    });
+</script>
 @endsection

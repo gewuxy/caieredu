@@ -67,4 +67,8 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+    
+    protected function postsendCode($phone, $code){
+    
+    }
 }

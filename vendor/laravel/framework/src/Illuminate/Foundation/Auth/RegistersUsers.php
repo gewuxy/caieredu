@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SmsManager;
 
 trait RegistersUsers
 {
@@ -55,6 +56,8 @@ trait RegistersUsers
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
+            //验证失败后建议清空存储的发送状态，防止用户重复试错
+            SmsManager::forgetState();
             $this->throwValidationException(
                 $request, $validator
             );

@@ -105,6 +105,10 @@ return [
 			'confirmed'   => '两次密码输入不一致',
 			'min'         => '密码至少6位',
         ],
+		'verifyCode' =>[
+			'required'   => '请输入验证码',
+			'verify_code' => '验证码错误',
+		],
 		'orgName' => [
 			'required' => '请填写机构名称',
 		],

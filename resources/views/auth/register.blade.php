@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <div>
-                                <input type="smsCode" class="form-control" name="smsCode" placeholder="请输入验证码">
+                                <input type="smsCode" class="form-control" name="verifyCode" placeholder="请输入验证码">
                             </div>
                         </div>
 

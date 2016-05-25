@@ -1,6 +1,7 @@
 !vendor/
 vendor/*
 !vendor/laravel/
+!vendor/toplan/
 /node_modules
 /public/storage
 Homestead.yaml

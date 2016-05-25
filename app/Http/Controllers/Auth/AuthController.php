@@ -50,6 +50,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'phone' => 'required|phone|unique:users',
+            'verifyCode' => 'required|verify_code|confirm_rule:mobile,mobile_required',
             'password' => 'required|confirmed|min:6',
         ]);
     }

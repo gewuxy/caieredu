@@ -8,11 +8,16 @@
                 <div class="panel-heading">注册</div>
                 <div class="panel-body">
                     @include('common.errors')
+                    <div class="alert alert-danger" id="alert_area" style="display: none">
+                        <button type="button" class="close" data-hide="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong id="alert_text"></strong>
+                    </div>
                     <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}"
+                                <input type="text" class="form-control" name="mobile" value="{{ old('mobile') }}"
                                        placeholder="手机号码">
                                 <div class="input-group-btn">
                                     <button id="sendVerifySmsButton" class="btn">
@@ -63,9 +68,9 @@
         //laravel csrf token
         token           : "{{csrf_token()}}",
         //定义如何获取mobile的值
-        mobile_selector : 'input[name=phone]',
+        mobile_selector : 'input[name=mobile]',
         //手机号的检测规则
-        mobile_rule     : 'mobile_required',
+        mobile_rule     : 'check_mobile_unique',
         //请求间隔时间
         interval        : 60,
         //是否请求语音验证码
@@ -73,8 +78,14 @@
 
         //定义服务器有消息返回时如何展示，默认为alert
         alertMsg       :  function (msg, type) {
-            alert(msg);
+            $('#alert_area').show();
+            $('#alert_text').html(msg);
         }
+    });
+    $(function(){
+        $("[data-hide]").on("click", function(){
+            $("." + $(this).attr("data-hide")).hide();
+        });
     });
 </script>
 @endsection

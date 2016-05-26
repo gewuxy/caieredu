@@ -18,6 +18,7 @@ Validator::extend('verify_code', function ($attribute, $value) {
 
 Validator::extend('confirm_rule', function ($attribute, $value, $parameters) {
     $state = SmsManager::retrieveState();
+    Log::info($state);
     $field = isset($parameters[0]) ? $parameters[0] : null;
     $name = null;
     if (array_key_exists(1, $parameters)) {
@@ -30,6 +31,10 @@ Validator::extend('confirm_rule', function ($attribute, $value, $parameters) {
             //swallow exception
         }
     }
+    Log::info($attribute);
+    Log::info($value);
+    Log::info($parameters);
+    Log::info($name);
 
     return $state && array_key_exists($field, $state['usedRule']) && $state['usedRule'][$field] === $name;
 });

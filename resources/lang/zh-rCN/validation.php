@@ -95,10 +95,11 @@ return [
 			'max'      => '邮件地址不超过255个字符',
 			'unique'   => '邮件地址已经注册，请直接登录',
         ],
-		'phone' => [
-            'required' => '请填写手机号码',
-			'phone'    => '手机号码格式错误',
+		'mobile' => [
 			'unique'   => '手机号码已经注册，请直接登录',
+			'required' => '请填写手机号码',
+			'zh_mobile' => '手机号码格式错误',
+			'confirm_mobile_not_change' => '手机号码前后不一致',
         ],
 		'password' => [
             'required'    => '请输入密码',

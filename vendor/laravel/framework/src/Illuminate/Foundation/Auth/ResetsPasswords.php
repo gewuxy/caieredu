@@ -33,7 +33,7 @@ trait ResetsPasswords
         }
 
         if (view()->exists('auth.passwords.email')) {
-            return view('auth.passwords.email');
+            return view('auth.passwords.email',["title" => '找回密码']);
         }
 
         return view('auth.password');

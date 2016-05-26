@@ -6,8 +6,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">修改密码</div>
+                <div class="panel-heading">找回密码</div>
                 <div class="panel-body">
+                    @include('common.errors')
+                    <div class="alert alert-danger" id="alert_area" style="display: none">
+                        <strong id="alert_text"></strong>
+                    </div>
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
@@ -17,12 +21,12 @@
                     <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/password/email') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
 
                             <div class="input-group">
-                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="电话号码">
+                                <input type="text" class="form-control" name="mobile" value="{{ old('mobile') }}" placeholder="电话号码">
                                 <div class="input-group-btn">
-                                    <button class="btn">
+                                    <button class="btn" id="sendVerifySmsButton">
                                         发送验证码
                                     </button>
                                 </div>
@@ -79,4 +83,26 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/js/laravel-sms.js"></script>
+<script>
+    $('#sendVerifySmsButton').sms({
+        //laravel csrf token
+        token           : "{{csrf_token()}}",
+        //定义如何获取mobile的值
+        mobile_selector : 'input[name=mobile]',
+        //手机号的检测规则
+        mobile_rule     : 'mobile_required',
+        //请求间隔时间
+        interval        : 60,
+        //是否请求语音验证码
+        voice           : false,
+
+        //定义服务器有消息返回时如何展示，默认为alert
+        alertMsg       :  function (msg, type) {
+            $('#alert_area').show();
+            $('#alert_text').html(msg);
+        }
+    });
+</script>
 @endsection

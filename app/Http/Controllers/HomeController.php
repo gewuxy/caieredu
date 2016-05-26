@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Psy\Exception\ErrorException;
+use Image;
 
 class HomeController extends Controller
 {
@@ -71,8 +71,7 @@ class HomeController extends Controller
             $input = array('image' => $file);
             $destinationPath = 'headIcons/';
             $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
-            Input::file('pictureupload')->move($destinationPath, $filename);
-            //var_dump($user->headIcon);
+            Image::make($file->getRealPath())->resize(200, 200)->save(public_path($destinationPath . $filename));
             if(!empty($user->headIcon)){
                 $str = 'headIcons'.substr($user->headIcon, strrpos($user->headIcon,'/'));
                //var_dump($str);
@@ -158,11 +157,5 @@ class HomeController extends Controller
         }
 
         return redirect('/home');
-    }
-
-    public function ajaxUploadImage()
-    {
-
-
     }
 }

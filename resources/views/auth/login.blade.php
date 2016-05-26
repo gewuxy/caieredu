@@ -11,8 +11,8 @@
                     <form class="form-horizontal col-md-12" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="手机号">
+                        <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
+                            <input type="text" class="form-control" name="mobile" value="{{ old('mobile') }}" placeholder="手机号">
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

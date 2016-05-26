@@ -160,6 +160,9 @@ return [
         Toplan\PhpSms\PhpSmsServiceProvider::class,
         Toplan\Sms\SmsManagerServiceProvider::class,
 
+        //图片处理
+        Intervention\Image\ImageServiceProvider::class
+
     ],
 
     /*
@@ -207,8 +210,10 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         //sms
-        'PhpSms' => Toplan\PhpSms\Facades\Sms::class,
+        'PhpSms'    => Toplan\PhpSms\Facades\Sms::class,
         'SmsManager' => Toplan\Sms\Facades\SmsManager::class,
+
+        'Image'     => Intervention\Image\Facades\Image::class
 
     ],
 

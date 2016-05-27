@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Log;
 
 trait AuthenticatesUsers
 {
@@ -114,8 +115,11 @@ trait AuthenticatesUsers
         if (method_exists($this, 'authenticated')) {
             return $this->authenticated($request, Auth::guard($this->getGuard())->user());
         }
-
-        return redirect()->intended('/home');
+        if(empty(Auth::guard($this->getGuard())->user()->organization)){
+            return redirect()->intended('/editDetail');
+        }else{
+            return redirect()->intended('/home');
+        }
     }
 
     /**

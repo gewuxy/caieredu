@@ -27,7 +27,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         if(Auth::check()){
             //已经登录
-            return redirect('/home');
+            if(empty(Auth::user()->organization)){
+                redirect('/editDetail');
+            }else{
+                return redirect('/home');
+            }
         }else{
             //未登录
             return redirect('/login');

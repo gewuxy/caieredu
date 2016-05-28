@@ -49,7 +49,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'mobile' => 'required|confirm_rule:mobile,check_mobile_unique|confirm_mobile_not_change',
+            'mobile' => 'required|unique:users|confirm_rule:mobile,mobile_required|confirm_mobile_not_change',
             'verifyCode' => 'required|verify_code',
             'password' => 'required|confirmed|min:6',
         ]);

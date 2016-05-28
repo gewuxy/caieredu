@@ -110,6 +110,9 @@ return [
 			'required'   => '请输入验证码',
 			'verify_code' => '验证码错误',
 		],
+		'pictureupload' => [
+		    'required' => '请选择头像',
+		],
 		'orgName' => [
 			'required' => '请填写机构名称',
 		],

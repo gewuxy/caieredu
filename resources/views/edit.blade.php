@@ -13,7 +13,9 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <img id="preview" src="{{Auth::user()->headIcon}}" alt="头像" style="display: inline;width: 80px;height: 80px"/>
-                                    <input name="pictureupload" type="file" id="pictureupload" style="display: inline;padding-top: 28px;padding-left: 10px">
+                                    <a href="javascript:;" class="file">选择文件<input name="pictureupload" type="file" id="pictureupload" accept="image/*">
+                                    </a>
+                                    <span class="showFileName"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -27,12 +29,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group btn-group-justified" style="align-content: center" id="distpicker">
+                            <div class="form-group" id="distpicker">
                                 <select name="province" data-province="{{Auth::user()->province}}"
-                                        style="width: 33%"></select>
-                                <select name="city" data-city="{{Auth::user()->city}}" style="width: 33%"></select>
+                                        style="width: 32.3%"></select>
+                                <select name="city" data-city="{{Auth::user()->city}}" style="width: 32.3%"></select>
                                 <select name="district" data-district="{{Auth::user()->district}}"
-                                        style="width: 33%"></select>
+                                        style="width: 32.3%"></select>
                             </div>
 
                             <div class="form-group">
@@ -123,5 +125,19 @@
             }
         };
         var cropperBox = new Croppic('cropContainerEyecandy', croppedOptions);
+
+        $(".file").on("change","input[type='file']",function(){
+            var filePath=$(this).val();
+            if(filePath.indexOf("jpg")!=-1 || filePath.indexOf("png")!=-1){
+                $(".fileerrorTip").html("").hide();
+                var arr=filePath.split('\\');
+                var fileName=arr[arr.length-1];
+                $(".showFileName").html(fileName);
+            }else{
+                $(".showFileName").html("");
+                $(".fileerrorTip").html("您未上传文件，或者您上传文件类型有误！").show();
+                return false
+            }
+        })
     </script>
 @endsection

@@ -70,7 +70,7 @@
         //定义如何获取mobile的值
         mobile_selector : 'input[name=mobile]',
         //手机号的检测规则
-        mobile_rule     : 'check_mobile_unique',
+        mobile_rule     : 'mobile_required',
         //请求间隔时间
         interval        : 60,
         //是否请求语音验证码

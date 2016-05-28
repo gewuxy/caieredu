@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -25,17 +24,7 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
-        if(Auth::check()){
-            //已经登录
-            if(empty(Auth::user()->organization)){
-                redirect('/editDetail');
-            }else{
-                return redirect('/home');
-            }
-        }else{
-            //未登录
-            return redirect('/login');
-        }
+        return redirect('/login');
     })->middleware('guest');
 
     Route::get('/tasks', 'TaskController@index');

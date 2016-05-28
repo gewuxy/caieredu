@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Image;
+use Log;
 
 class HomeController extends Controller
 {
@@ -52,6 +53,7 @@ class HomeController extends Controller
 
     public function postEditDetail(Request $request){
         $this->validate($request, [
+            'pictureupload' => 'required',
             'orgName' => 'required',
             'orgAddressDetail' => 'required',
             'contacts' => 'required',
@@ -68,23 +70,26 @@ class HomeController extends Controller
         $user->contactsNO = $request->contactsNO;
         $file = Input::file('pictureupload');
         if($file != null && $file->isValid()){
-            $input = array('image' => $file);
-            $destinationPath = 'headIcons/';
-            $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
-            Image::make($file->getRealPath())->resize(200, 200)->save(public_path($destinationPath . $filename));
-            if(!empty($user->headIcon)){
-                $str = 'headIcons'.substr($user->headIcon, strrpos($user->headIcon,'/'));
-               //var_dump($str);
-                //var_dump(file_exists($str));
-                if(file_exists($str)){
-                    if(unlink($str)){
-                        //var_dump("删除成功") ;
-                    }else{
-                        //var_dump("删除失败") ;
+            $extension = $file->getClientOriginalExtension();
+            if($extension.equalToIgnoringCase('jpg') || $extension.equalToIgnoringCase('png') || $extension.equalToIgnoringCase('bmp')){
+                $input = array('image' => $file);
+                $destinationPath = 'headIcons/';
+                $filename = md5(microtime() . $file->getClientOriginalName()) . "." . $file->getClientOriginalExtension();
+                Image::make($file->getRealPath())->resize(200, 200)->save(public_path($destinationPath . $filename));
+                if(!empty($user->headIcon)){
+                    $str = 'headIcons'.substr($user->headIcon, strrpos($user->headIcon,'/'));
+                    //var_dump($str);
+                    //var_dump(file_exists($str));
+                    if(file_exists($str)){
+                        if(unlink($str)){
+                        }else{
+                        }
                     }
                 }
+                $user->headIcon = asset($destinationPath . $filename);
+            }else{
+                return redirect('/editDetail')->withErrors('格式错误')->withInput();
             }
-            $user->headIcon = asset($destinationPath . $filename);
         }
         $user->save();
 

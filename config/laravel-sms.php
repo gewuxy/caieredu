@@ -67,7 +67,7 @@ return [
     */
     'notifies' => [
         // 频繁请求无效的提示
-        'request_invalid' => '请求无效，请在%s秒后重试',
+        'request_invalid' => '请在%s秒后重试',
 
         // 验证码短信发送失败的提示
         'sms_sent_failure' => '短信验证码发送失败，请稍后重试',

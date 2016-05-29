@@ -94,37 +94,71 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改图片</h4>
+                </div>
+                <div class="modal-body">
+                    <img id="modal_preview" src="" alt="" style="width: auto;height: auto;max-width: 100%;"/>
+                    <label class="data-url"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="/js/distpicker.data.js"></script>
     <script src="/js/distpicker.js"></script>
-    <script src="/plugins/croppic/croppic.min.js"></script>
+    <script src="/js/cropper.js"></script>
     <script>
         $('#distpicker').distpicker({
             autoSelect: false
         });
+
+        var $image = $('#modal_preview');
+        var originlData = {};
 
         $('#pictureupload').change(function () {
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#preview').attr('src', e.target.result);
+                    $image.attr('src', e.target.result);
+                    $("#myModal").on("shown.bs.modal", function() {
+                        $image.cropper({
+                            aspectRatio: 200/200,
+                            resizable: true,
+                            zoomable: true,
+                            modal:true,
+                            guides:false,
+                            hightlight:true,
+                            rotatable: true,
+                            background:false,
+                            multiple: false,
+                        });
+                    }).on("hidden.bs.modal", function() {
+                        originlData = $image.cropper("getData");
+                        var canvas = $image.cropper("getCroppedCanvas");
+                        var data = canvas.toDataURL();
+                        $("#preview").attr("src", data);
+                        $image.cropper("destroy");
+                    });;
+                    $('#myModal').modal('show');
+                    //showCropper();
                 }
 
                 reader.readAsDataURL(this.files[0]);
             }
         });
 
-        var eyeCandy = $('#cropContainerEyecandy');
-        var croppedOptions = {
-            uploadUrl: 'upload',
-            cropUrl: 'crop',
-            cropData:{
-                'width' : eyeCandy.width(),
-                'height': eyeCandy.height()
-            }
-        };
-        var cropperBox = new Croppic('cropContainerEyecandy', croppedOptions);
 
         $(".file").on("change","input[type='file']",function(){
             var filePath=$(this).val();
@@ -138,6 +172,6 @@
                 $(".fileerrorTip").html("您未上传文件，或者您上传文件类型有误！").show();
                 return false
             }
-        })
+        });
     </script>
 @endsection
